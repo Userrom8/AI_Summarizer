@@ -8,7 +8,7 @@ const Hero = () => {
 
         <button
           type="button"
-          onClick={() => window.open('https://github.com/Userrom8')}
+          onClick={() => window.open('https://github.com/Userrom8/AI_Summarizer')}
           className="black_btn"
         >
           Github
