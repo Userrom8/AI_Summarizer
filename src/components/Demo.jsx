@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { copy, loader, tick, linkIcon } from "../assets";
 import { useLazyGetSummaryQuery } from "../services/article";
@@ -48,7 +48,13 @@ const Demo = () => {
 
   const delHistory = () => {
     localStorage.clear();
-    window.location.reload();
+
+    const articlesFromLocalStorage = JSON.parse(
+      localStorage.getItem("articles")
+    );
+    if (articlesFromLocalStorage) {
+      setAllArticles(articlesFromLocalStorage);
+    } else setAllArticles([]);
   };
 
   const showHistory = () => {
@@ -83,7 +89,40 @@ const Demo = () => {
           </button>
         </div>
       );
-  }
+  };
+
+  const historySection = (item, index) => {
+    return (
+      <div
+        key={`link-${index}`}
+        onClick={() => setArticle(item)}
+        className="link_card"
+      >
+        <div className="copy_btn" onClick={() => handleCopy(item.url)}>
+          <img
+            src={copied === item.url ? tick : copy}
+            alt="copy_icon"
+            className="w-[40%] h-[40%] object-contain"
+          />
+        </div>
+        <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm turncate">
+          {item.url}
+        </p>
+      </div>
+    );
+  };
+
+  const showHistorySection = () => {
+    return allArticles.map(historySection);
+  };
+
+  const summaryRef = useRef(null);
+
+  useEffect(() => {
+    if (article.summary && summaryRef.current) {
+      summaryRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+  }, [article.summary]);
 
   return (
     <section className="mt-16 w-full max-w-xl">
@@ -132,33 +171,15 @@ const Demo = () => {
 
         {/* Browse URL History */}
 
-        <div className="flex items-center justify-center">
-        {showHistory()}
-        </div>
+        <div className="flex items-center justify-center">{showHistory()}</div>
 
         <div className="flex-col gap-1 max-h-60 overflow-y-auto">
-          {allArticles.map((item, index) => (
-            <div
-              key={`link-${index}`}
-              onClick={() => setArticle(item)}
-              className="link_card"
-            >
-              <div className="copy_btn" onClick={() => handleCopy(item.url)}>
-                <img
-                  src={copied === item.url ? tick : copy}
-                  alt="copy_icon"
-                  className="w-[40%] h-[40%] object-contain"
-                />
-              </div>
-              <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm turncate">
-                {item.url}
-              </p>
-            </div>
-          ))}
+          {showHistorySection()}
         </div>
       </div>
 
       {/* Display Results */}
+
       <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
           <img src={loader} alt="loader" className="w-20 h-20 object-contain" />
@@ -172,7 +193,7 @@ const Demo = () => {
           </p>
         ) : (
           article.summary && (
-            <div className="flex flex-col gap-3">
+            <div ref={summaryRef} className="flex flex-col gap-3">
               <h2 className="font-satoshi font-bold text-gray-600 text-xl">
                 Article <span className="blue_gradient">Summary</span>
               </h2>
