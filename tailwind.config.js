@@ -10,17 +10,17 @@ export default {
       keyframes: {
         "slide-in-from-bottom": {
           from: {
-            transform: "translateY(100%)",
+            transform: "translateY(0)",
             opacity: "0",
           },
           to: {
-            transform: "translateY(0)",
+            transform: "translateY(-3rem)",
             opacity: "1",
           },
         },
       },
       animation: {
-        "slide-in-from-bottom": "slide-in-from-bottom .1s linear",
+        "slide-in-from-bottom": "slide-in-from-bottom .1s linear forwards",
       },
     },
   },

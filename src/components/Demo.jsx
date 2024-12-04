@@ -59,11 +59,11 @@ const Demo = () => {
 
   const [showDeletion, setshowDeletion] = useState(false);
 
-  const acknowledgeDeletion = () => {
+  const handleDeletionAcknowledgement = () => {
     setshowDeletion(true);
     setTimeout(() => {
       setshowDeletion(false);
-    }, 3000);
+    }, 2500);
   };
 
   const showHistory = () => {
@@ -75,11 +75,9 @@ const Demo = () => {
           </p>
           <button
             className="flex items-center justify-center w-8 h-8 rounded text-gray-400 hover:text-gray-600 transition-all"
-            // onClick={() => delHistory()}
-            // onClick={() => acknowledgeDeletion()}
             onClick={() => {
               delHistory();
-              acknowledgeDeletion();
+              handleDeletionAcknowledgement();
             }}
           >
             <svg
@@ -137,6 +135,87 @@ const Demo = () => {
       summaryRef.current.scrollIntoView({ behaviour: "smooth" });
     }
   }, [article.summary]);
+
+  const [scroll, setscroll] = useState(0);
+
+  useEffect(() => {
+    const getScrollTop = () => {
+      setscroll(window.scrollY);
+    };
+    window.addEventListener("scroll", getScrollTop);
+
+    return () => {
+      window.removeEventListener("scroll", getScrollTop);
+    };
+  }, []);
+
+  const [height, setheight] = useState(window.innerHeight * 0.9 + scroll);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setheight(window.innerHeight * 0.9 + scroll);
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [scroll]);
+
+  const acknowledgeDeletion = () => {
+    return (
+      <div
+        className="absolute left-0 right-0 flex justify-center items-center animate-slide-in-from-bottom"
+        style={{
+          top: `${height}px`,
+        }}
+      >
+        <div className="py-2 px-4 bg-white rounded shadow flex gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="24"
+            height="24"
+            viewBox="0 0 48 48"
+          >
+            <linearGradient
+              id="IMoH7gpu5un5Dx2vID39Ra_pIPl8tqh3igN_gr1"
+              x1="9.858"
+              x2="38.142"
+              y1="9.858"
+              y2="38.142"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stopColor="#9dffce"></stop>
+              <stop offset="1" stopColor="#50d18d"></stop>
+            </linearGradient>
+            <path
+              fill="url(#IMoH7gpu5un5Dx2vID39Ra_pIPl8tqh3igN_gr1)"
+              d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
+            ></path>
+            <linearGradient
+              id="IMoH7gpu5un5Dx2vID39Rb_pIPl8tqh3igN_gr2"
+              x1="13"
+              x2="36"
+              y1="24.793"
+              y2="24.793"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".824" stopColor="#135d36"></stop>
+              <stop offset=".931" stopColor="#125933"></stop>
+              <stop offset="1" stopColor="#11522f"></stop>
+            </linearGradient>
+            <path
+              fill="url(#IMoH7gpu5un5Dx2vID39Rb_pIPl8tqh3igN_gr2)"
+              d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414	c0.391-0.391,1.024-0.391,1.414,0L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414	c0.391,0.391,0.391,1.024,0,1.414l-13,13C22.317,33.098,21.683,33.098,21.293,32.707z"
+            ></path>
+          </svg>
+          <p>History deleted successfully !</p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section className="mt-16 w-full max-w-xl">
@@ -220,53 +299,7 @@ const Demo = () => {
           )
         )}
       </div>
-      {showDeletion && (
-        <div className="sticky bottom-10 flex justify-center items-center animate-slide-in-from-bottom">
-          <div className="py-2 px-4 bg-white rounded shadow flex gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              width="24"
-              height="24"
-              viewBox="0 0 48 48"
-            >
-              <linearGradient
-                id="IMoH7gpu5un5Dx2vID39Ra_pIPl8tqh3igN_gr1"
-                x1="9.858"
-                x2="38.142"
-                y1="9.858"
-                y2="38.142"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop offset="0" stopColor="#9dffce"></stop>
-                <stop offset="1" stopColor="#50d18d"></stop>
-              </linearGradient>
-              <path
-                fill="url(#IMoH7gpu5un5Dx2vID39Ra_pIPl8tqh3igN_gr1)"
-                d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
-              ></path>
-              <linearGradient
-                id="IMoH7gpu5un5Dx2vID39Rb_pIPl8tqh3igN_gr2"
-                x1="13"
-                x2="36"
-                y1="24.793"
-                y2="24.793"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop offset=".824" stopColor="#135d36"></stop>
-                <stop offset=".931" stopColor="#125933"></stop>
-                <stop offset="1" stopColor="#11522f"></stop>
-              </linearGradient>
-              <path
-                fill="url(#IMoH7gpu5un5Dx2vID39Rb_pIPl8tqh3igN_gr2)"
-                d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414	c0.391-0.391,1.024-0.391,1.414,0L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414	c0.391,0.391,0.391,1.024,0,1.414l-13,13C22.317,33.098,21.683,33.098,21.293,32.707z"
-              ></path>
-            </svg>
-            <p>History deleted successfully !</p>
-          </div>
-        </div>
-      )}
+      {showDeletion && acknowledgeDeletion()}
     </section>
   );
 };
