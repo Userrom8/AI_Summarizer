@@ -49,12 +49,11 @@ const Demo = () => {
   const delHistory = () => {
     localStorage.clear();
 
-    const articlesFromLocalStorage = JSON.parse(
-      localStorage.getItem("articles")
-    );
-    if (articlesFromLocalStorage) {
-      setAllArticles(articlesFromLocalStorage);
-    } else setAllArticles([]);
+    setAllArticles([]);
+    setArticle({
+      url: "",
+      summary: "",
+    });
   };
 
   const [showDeletion, setshowDeletion] = useState(false);
@@ -117,7 +116,7 @@ const Demo = () => {
             className="w-[40%] h-[40%] object-contain"
           />
         </div>
-        <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm turncate">
+        <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
           {item.url}
         </p>
       </div>
