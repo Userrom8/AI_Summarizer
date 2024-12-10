@@ -69,11 +69,11 @@ const Demo = () => {
     if (localStorage.length > 0)
       return (
         <div className="flex items-center justify-between w-full px-4">
-          <p className="text-sm text-gray-600 sm:text-xs text-center">
+          <p className="text-sm text-gray-600 sm:text-xs text-center dark:text-gray-400">
             History
           </p>
           <button
-            className="flex items-center justify-center w-8 h-8 rounded text-gray-400 hover:text-gray-600 transition-all"
+            className="flex items-center justify-center w-8 h-8 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all"
             onClick={() => {
               delHistory();
               handleDeletionAcknowledgement();
@@ -113,10 +113,10 @@ const Demo = () => {
           <img
             src={copied === item.url ? tick : copy}
             alt="copy_icon"
-            className="w-[40%] h-[40%] object-contain"
+            className="w-[50%] h-[50%] object-contain dark:invert"
           />
         </div>
-        <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
+        <p className="flex-1 font-satoshi text-blue-700 dark:text-blue-300 font-medium text-sm truncate">
           {item.url}
         </p>
       </div>
@@ -226,7 +226,7 @@ const Demo = () => {
           <img
             src={linkIcon}
             alt="link-icon"
-            className="absolute left-0 my-2 ml-3 w-5"
+            className="absolute left-0 my-2 ml-3 w-5 dark:invert"
           />
           <input
             id="input"
@@ -240,8 +240,9 @@ const Demo = () => {
           <button
             type="submit"
             className="submit_btn
-             peer-focus:border-gray-700
-              peer-focus:text-gray-700"
+             peer-focus:border-gray-400
+              peer-focus:text-gray-700 dark:peer-focus:border-gray-600
+              dark:peer-focus:text-gray-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -286,11 +287,11 @@ const Demo = () => {
         ) : (
           article.summary && (
             <div ref={summaryRef} className="flex flex-col gap-3">
-              <h2 className="font-satoshi font-bold text-gray-600 text-xl">
+              <h2 className="font-satoshi font-bold text-gray-600 dark:text-gray-400 text-xl">
                 Article <span className="blue_gradient">Summary</span>
               </h2>
               <div className="summary_box">
-                <p className="font-inter font-medium text-sm text-gray-700">
+                <p className="font-inter font-medium text-sm text-gray-700 dark:text-gray-300">
                   {article.summary}
                 </p>
               </div>

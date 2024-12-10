@@ -1,13 +1,8 @@
-import linkIcon from './link.svg'
-import loader from './loader.svg'
-import copy from './copy.svg'
-import logo from './logo.svg'
-import tick from './tick.svg'
+import linkIcon from "./link.svg";
+import loader from "./loader.svg";
+import copy from "./copy.svg";
+import logoLight from "./logo-light.svg";
+import logoDark from "./logo-dark.svg";
+import tick from "./tick.svg";
 
-export {
-    linkIcon,
-    loader,
-    copy,
-    logo,
-    tick
-}
+export { linkIcon, loader, copy, logoLight, logoDark, tick };
