@@ -47,7 +47,7 @@ const Demo = () => {
   };
 
   const delHistory = () => {
-    localStorage.clear();
+    localStorage.removeItem("articles");
 
     setAllArticles([]);
     setArticle({
@@ -62,7 +62,7 @@ const Demo = () => {
     setshowDeletion(true);
     setTimeout(() => {
       setshowDeletion(false);
-    }, 2500);
+    }, 3000);
   };
 
   const showHistory = () => {
@@ -169,7 +169,7 @@ const Demo = () => {
           top: `${height}px`,
         }}
       >
-        <div className="py-2 px-4 bg-white rounded shadow flex gap-2">
+        <div className="py-2 px-4 bg-white dark:bg-black dark:border-gray-400 rounded shadow flex gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -264,7 +264,9 @@ const Demo = () => {
 
         {/* Browse URL History */}
 
-        <div className="flex items-center justify-center">{showHistory()}</div>
+        <div className="flex items-center justify-center">
+          {allArticles.length > 0 && showHistory()}
+        </div>
 
         <div className="flex-col gap-1 max-h-60 overflow-y-auto">
           {showHistorySection()}
