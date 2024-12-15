@@ -26,7 +26,7 @@ const Hero = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="toggle-button"
+          className="lucide moon-star"
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9" />
           <path d="M20 3v4" />
@@ -45,7 +45,7 @@ const Hero = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="toggle-button"
+          className="lucide sun"
         >
           <circle cx="12" cy="12" r="4" />
           <path d="M12 3v1" />

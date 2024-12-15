@@ -7,7 +7,7 @@ import Demo from "./components/Demo";
 import "./App.css";
 
 const App = () => {
-  const { dark, setDark } = useContext(ThemeContext);
+  const { dark } = useContext(ThemeContext);
 
   useEffect(() => {
     const root = window.document.documentElement;
